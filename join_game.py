@@ -5,27 +5,35 @@ import json
 import cgi
 
 import misc
-from misc import spec
 
 cgitb.enable()
 
 
 fields = cgi.FieldStorage()
-name = fields.getvalue("name")
+gameID = int(fields.getvalue("gameID"))
 hash = fields.getvalue("hash")
+name = fields.getvalue("name")
 
-try:
-    games = misc.load_games()
+games = misc.load_games()
 
-    for game in games:
-        game.player_1_hash = "_"
-        game.player_2_hash = "_"
+found = None
+for game in games:
+    if game.gameID == gameID:
+        found = game
+        break
 
-    games = [game for game in games if game.player_2 is "_"]
-    data = spec.getSuccessDict("Fetched {0} games".format(len(games)), games=[game.to_dict() for game in games])
+if None in {gameID, hash, name}:
+    misc.fail("Missing parameter, one of gameID, hash, name")
+if found is None:
+    misc.fail("No game with that ID found")
+if found.game_state != "W":
+    misc.fail("That game is no longer open")
 
-    misc.start_success()
-    print(json.dumps(data))
-except Exception as e:
-    misc.start_error()
-    raise e
+found.player_2 = name
+found.player_2_hash = hash
+found.game_state = "L"
+
+del found.player_1_hash
+misc.save_games(games)
+
+misc.succeed("Joined game", game=found.to_dict())

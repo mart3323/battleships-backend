@@ -1,4 +1,8 @@
-# gameID, p1, hash, p2, hash, state,
-1 m3 wxg Jakob 0sv G 3 4 3 0
-2 Karmen uj1 m3 1wsda G 3 4 3 0
-3 Jakob 7ashd _ 1dsa L 3 4 3 0
+# gameID player_1         p1hash   player_2         p2hash   game_state      turn     ships    board    started_at
+       1 m3               wxg      Jakob            0sv      G               3        4        3        0
+       2 Karmen           uj1      m3               1wsda    G               3        4        3        0
+       3 Jakob            7ashd    _                1dsa     L               3        4        3        0
+       4 mart3323         uidfay9y _                _        W               3        4        6        0
+       5 mart332          m3x7     _                _        W               3        4        6        0
+       6 mart33           m3x7     _                _        W               3        4        6        0
+       7 mart3            sd67890  _                _        W               3        4        6        0

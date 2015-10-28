@@ -1,3 +1,4 @@
+import json
 import Game
 
 
@@ -14,10 +15,16 @@ def save_games(games_list):
         index_file.write("\n")
 
 
-def start_success():
+def succeed(message, **data):
+    d = dict()
+    d["message"] = message
+    d["data"] = data
     print("Content-type: application/json\n")
+    print(json.dumps(d))
 
 
-def start_error():
+def fail(message):
     print("Status:403 Forbidden\n")
-    print("Content-type: text/html\n")
+    print("Content-type: application/json\n")
+    print('{{"reason":{message}}}'.format(message=message))
+    exit()
