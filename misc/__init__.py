@@ -1,18 +1,36 @@
 import json
 import Game
 
+BOARDS_FILE = "data/boards/{0}{1}.txt"
+INDEX_FILE = "data/index.txt"
+
+EMPTY = 1
+SHIP = 2
+SHOT = 3
+
 
 def load_games():
-    with open("data/index", "r") as index_file:
-        lines = [line for line in index_file.readlines() if not(line.replace(" ","") == "" or line.replace(" ","")[0] is "#")]
+    with open(INDEX_FILE, "r") as index_file:
+        lines = [line for line in index_file.readlines() if not(
+            line.replace(" ", "") == "" or
+            line.replace(" ", "")[0] is "#")]
     return [Game.Game(Game.parse(line)) for line in lines]
 
 
-def save_games(games_list):
-    lines = [Game.stringify(**game.to_dict()) for game in games_list]
-    with open("data/index", "wb") as index_file:
-        index_file.write("\n".join([Game.stringify(**x.to_dict()) for x in games_list]))
-        index_file.write("\n")
+def find_game(games, gameID):
+    for game in games:
+        if str(game.gameID) == str(gameID):
+            return game
+
+
+def get_boards(gameID):
+    with open(BOARDS_FILE.format(gameID, 1), "r") as file:
+        board1 = file.read().split("\n")
+    with open(BOARDS_FILE.format(gameID, 2), "r") as file:
+        board2 = file.read().split("\n")
+    board1 = [int(line.split(" ")) for line in board1]
+    board2 = [int(line.split(" ")) for line in board2]
+    return board1, board2
 
 
 def succeed(message, **data):
@@ -28,3 +46,26 @@ def fail(message):
     print("Content-type: application/json\n")
     print('{{"reason":{message}}}'.format(message=message))
     exit()
+
+
+def save_board(gameID, board, index):
+    board = [[str(cell) for cell in line] for line in board]
+    with open(BOARDS_FILE.format(gameID, index), "w") as file:
+        file.write("\n\n".join([
+            "\n".join([" ".join(line) for line in board]),
+        ]))
+
+
+def save_games(games_list):
+    lines = [Game.stringify(**game.to_dict()) for game in games_list]
+    with open(INDEX_FILE, "wb") as index_file:
+        index_file.write("\n".join([Game.stringify(**x.to_dict()) for x in games_list]))
+        index_file.write("\n")
+
+
+def validate_player(game, name, hash):
+    if name == game.player_1 and hash == game.player_1_hash:
+        return 1
+    if name == game.player_2 and hash == game.player_2_hash:
+        return 2
+    return None
