@@ -7,6 +7,7 @@ INDEX_FILE = "data/index.txt"
 EMPTY = 1
 SHIP = 2
 SHOT = 3
+FOG = 5
 
 
 def load_games():
@@ -28,8 +29,8 @@ def get_boards(gameID):
         board1 = file.read().split("\n")
     with open(BOARDS_FILE.format(gameID, 2), "r") as file:
         board2 = file.read().split("\n")
-    board1 = [int(line.split(" ")) for line in board1]
-    board2 = [int(line.split(" ")) for line in board2]
+    board1 = [[int(x) for x in line.split(" ")] for line in board1]
+    board2 = [[int(x) for x in line.split(" ")] for line in board2]
     return board1, board2
 
 

@@ -6,9 +6,7 @@ cgitb.enable()
 
 
 games = misc.load_games()
-games = [game.to_dict()
-         for game in games
-         if game.game_state is "W"]
+games = [game.to_dict() for game in games if game.game_state is "W"]
 
 
 for game in games:

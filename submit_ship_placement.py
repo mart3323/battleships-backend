@@ -4,6 +4,7 @@ import cgitb
 import cgi
 
 import misc
+from misc import board_checker
 cgitb.enable()
 
 
@@ -33,14 +34,19 @@ player = misc.validate_player(game, name, hash)
 if player is None:
     misc.fail("Invalid name/hash/gameID")
 
+board = make_board(game.board_size, ships)
+
+
+if not board_checker.check(board, game):
+    misc.fail("Ship placement provided is invalid")
 if player == 1 and game.waiting_for == 2 or game.waiting_for == 1 and player == 2 or game.game_state != "L":
     misc.fail("You have already submitted your board")
 if player == game.waiting_for:
-    misc.save_board(game.gameID, make_board(game.board_size, ships), player)
+    misc.save_board(game.gameID, board, player)
     game.game_state = "G"
     game.waiting_for = 1
 if game.waiting_for == 3:
-    misc.save_board(game.gameID, make_board(game.board_size, ships), player)
+    misc.save_board(game.gameID, board, player)
     if player == 1:
         game.waiting_for = 2
     elif player == 2:
