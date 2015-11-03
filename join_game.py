@@ -8,15 +8,14 @@ cgitb.enable()
 
 fields = cgi.FieldStorage()
 gameID = fields.getvalue("gameID")
-hash = fields.getvalue("hash")
+hash = misc.make_hash()
 name = fields.getvalue("name")
-
-if None in {gameID, hash, name}:
-    misc.fail("Missing parameter, one of gameID, hash, name")
 
 games = misc.load_games()
 found = misc.find_game(games, gameID)
 
+if None in {gameID, hash, name}:
+    misc.fail("Missing parameter, one of gameID, hash, name")
 if found is None:
     misc.fail("No game with that ID found")
 if found.game_state != "W":
@@ -30,4 +29,4 @@ misc.save_games(games)
 
 game = found.to_dict()
 del game["player_1_hash"]
-misc.succeed("Joined game", game=game)
+misc.succeed("Joined game", **game)

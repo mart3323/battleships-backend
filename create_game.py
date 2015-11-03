@@ -11,7 +11,7 @@ cgitb.enable()
 fields = cgi.FieldStorage()
 
 name = fields.getvalue("name")
-hash = fields.getvalue("hash")
+hash = misc.make_hash()
 num_ships = fields.getvalue("num_ships")
 board_size = fields.getvalue("board_size")
 

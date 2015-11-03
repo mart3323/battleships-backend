@@ -1,4 +1,5 @@
 import json
+import random
 import Game
 
 BOARDS_FILE = "data/boards/{0}{1}.txt"
@@ -70,3 +71,9 @@ def validate_player(game, name, hash):
     if name == game.player_2 and hash == game.player_2_hash:
         return 2
     return None
+
+
+def make_hash():
+    hashchars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
+    length = 8
+    return "".join([random.choice(hashchars) for _ in range(length)])
