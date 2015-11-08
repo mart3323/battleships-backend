@@ -16,4 +16,4 @@ def check(board, game):
     board_string = "".join("".join(str(x) for x in row) for row in board)
     if board_string.count("11") != game.num_ships:
         return False
-
+    return True

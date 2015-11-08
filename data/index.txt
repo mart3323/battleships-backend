@@ -1,8 +1,18 @@
-# gameID player_1         p1hash   player_2         p2hash   game_state      turn     ships    board    started_at
        1 m3               wxg      Jakob            0sv      G               3        4        3        0
        2 Karmen           uj1      m3               1wsda    G               3        4        3        0
        3 Jakob            7ashd    _                1dsa     L               3        4        3        0
-       4 mart3323         uidfay9y _                _        W               3        4        6        0
+       4 mart3323         uidfay9y Unnamed          pYJ2VhFU L               3        4        6        0
        5 mart332          m3x7     _                _        W               3        4        6        0
        6 mart33           m3x7     _                _        W               3        4        6        0
-       7 mart3            sd67890  _                _        W               3        4        6        0
+       7 mart3            sd67890  Unnamed          FgzNbBQi L               3        4        6        0
+       8 Unnamed          84ODY2ua Unnamed          M2lj2r19 L               3        4        5        0
+       9 Unnamed          En0O8UfD Unnamed          oOuCTnqT L               3        4        5        0
+      10 Unnamed          cIPFTBoF Unnamed          LsrcxoUY L               3        4        5        0
+      11 Unnamed          M8KYVYyT Unnamed          swRCnRdO L               3        4        5        0
+      12 Unnamed          rRfdopoU Unnamed          ljXobGkY L               3        4        5        0
+      13 Unnamed          ulcwvcQR Unnamed          8Wqc6AOA L               3        4        6        0
+      14 Unnamed          D22liOzU Unnamed          DIF1qlNX L               3        5        6        0
+      15 Unnamed          OWu3Emrk Unnamed          BVO3xZ4D L               3        5        6        0
+      16 Unnamed          hfmGMCRX Unnamed          KZihx69Y L               3        5        6        0
+      17 _                iIBzRwJM _                PwUGnoJG L               3        8       10        0
+      18 ~m3              0sJQxrvV Unnamed          xe2m8xSV L               3        5        6        0

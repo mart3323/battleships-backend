@@ -47,6 +47,18 @@ class Game:
         self.board_size = data["board_size"]
         self.started_at = data["started_at"]
 
+    def to_personalized_dict(self, player_id):
+        return dict(gameID=self.gameID,
+                    your_name=self.player_1 if player_id == 1 else self.player_2,
+                    opponent_name=self.player_2 if player_id == 1 else self.player_1,
+                    your_hash=self.player_1_hash if player_id == 1 else self.player_2_hash,
+                    game_state=self.game_state,
+                    waiting_for=self.waiting_for,
+                    num_ships=self.num_ships,
+                    board_size=self.board_size,
+                    started_at=self.started_at
+                    )
+
     def to_dict(self):
         return dict(gameID=self.gameID,
                     player_1=self.player_1,

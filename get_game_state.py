@@ -15,7 +15,10 @@ if None in {name, hash, gameID}:
     misc.fail("Missing fields, one of (name, hash, gameID)")
 
 game = misc.find_game(misc.load_games(), gameID)
-board1, board2 = misc.get_boards(gameID)
+try:
+    board1, board2 = misc.get_boards(gameID)
+except:
+    board1, board2 = False, False
 
 
 dct = game.to_dict()
@@ -34,12 +37,11 @@ def obscure(board2):
     ]
 
 
-if name == game.player_1 and hash == game.player_1_hash:
-    del dct["player_2_hash"]
-    misc.succeed("Game state loaded", game=dct, your_board=board1, opponent_board=obscure(board2))
-elif name == game.player_2 and hash == game.player_2_hash:
-    del dct["player_1_hash"]
-    misc.succeed("Game state loaded", game=dct, your_board=board2, opponent_board=obscure(board1))
+validatied_player_id = misc.validate_player(game, name, hash)
+if validatied_player_id == 1:
+    misc.succeed("Game state loaded", game=game.to_dict(1), your_board=board1, opponent_board=obscure(board2))
+elif validatied_player_id == 2:
+    misc.succeed("Game state loaded", game=game.to_dict(2), your_board=board2, opponent_board=obscure(board1))
 else:
     misc.fail("Invalid name, hash, or gameID")
 
