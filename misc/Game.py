@@ -50,10 +50,11 @@ class Game:
     def to_personalized_dict(self, player_id):
         return dict(gameID=self.gameID,
                     your_name=self.player_1 if player_id == 1 else self.player_2,
-                    opponent_name=self.player_2 if player_id == 1 else self.player_1,
                     your_hash=self.player_1_hash if player_id == 1 else self.player_2_hash,
+                    your_turn=self.waiting_for == player_id or self.waiting_for == 3,
+                    opponent_name=self.player_2 if player_id == 1 else self.player_1,
+                    opponent_turn=self.waiting_for != player_id,
                     game_state=self.game_state,
-                    waiting_for=self.waiting_for,
                     num_ships=self.num_ships,
                     board_size=self.board_size,
                     started_at=self.started_at

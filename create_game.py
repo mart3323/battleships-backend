@@ -45,10 +45,8 @@ new_game = Game(dict(
 
 games.append(new_game)
 misc.save_games(games)
-data = new_game.to_dict()
-del data["player_2_hash"]
 
-misc.succeed("Game created", **data)
+misc.succeed("Game created", **new_game.to_personalized_dict(1))
 
 
 

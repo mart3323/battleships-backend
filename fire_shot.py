@@ -14,6 +14,7 @@ name, hash, gameID, x, y = (fields.getvalue("name"),
                             fields.getvalue("gameID"),
                             fields.getvalue("x"),
                             fields.getvalue("y"))
+
 if None in {name, hash, x, y}:
     misc.fail("Missing parameters, one of (name, hash, gameID, ships}")
 

@@ -3,6 +3,8 @@
 import cgitb
 import cgi
 import misc
+from misc.Game import Game
+
 cgitb.enable()
 
 
@@ -27,6 +29,4 @@ found.game_state = "L"
 
 misc.save_games(games)
 
-game = found.to_dict()
-del game["player_1_hash"]
-misc.succeed("Joined game", **game)
+misc.succeed("Joined game", **found.to_personalized_dict(2))

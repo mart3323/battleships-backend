@@ -24,6 +24,9 @@ def load_games():
 
 
 def find_game(games, gameID):
+    """
+    :rtype : Game.Game
+    """
     for game in games:
         if str(game.gameID) == str(gameID):
             return game
