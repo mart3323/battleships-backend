@@ -13,16 +13,16 @@ def make_board(board_size, ships):
     for i, v in enumerate(ships):
         y = i // game.board_size
         x = i % game.board_size
-        if v is "1":
+        if v == "2":
             board[y][x] *= misc.SHIP
     return board
 
 fields = cgi.FieldStorage()
 
-name, hash, gameID, ships = (fields.getvalue("name"),
-                             fields.getvalue("hash"),
-                             fields.getvalue("gameID"),
-                             fields.getvalue("ships"))
+name, hash, gameID, ships = (fields.getvalue("name",None),
+                             fields.getvalue("hash",None),
+                             fields.getvalue("gameID",None),
+                             fields.getvalue("ships",None))
 
 if None in {name, hash, gameID, ships}:
     misc.fail("Missing parameters, one of (name, hash, gameID, ships}")
@@ -37,9 +37,10 @@ if player is None:
 board = make_board(game.board_size, ships)
 
 
-if not board_checker.check(board, game):
-    misc.fail("Ship placement provided is invalid")
-if player == 1 and game.waiting_for == 2 or game.waiting_for == 1 and player == 2 or game.game_state != "L":
+board_checker.check(board, game)
+past_layout_phase = game.game_state != "L" and game.game_state != "W"
+waiting_for_opponent_only = player == 1 and game.waiting_for == 2 or game.waiting_for == 1 and player == 2
+if waiting_for_opponent_only or past_layout_phase:
     misc.fail("You have already submitted your board")
 if player == game.waiting_for:
     misc.save_board(game.gameID, board, player)
