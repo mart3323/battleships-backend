@@ -1,3 +1,4 @@
+#     ID Name1            Hash1    Name2            Hash2    game_state      turn     shps     brd_sz   start_time
        1 m3               wxg      Jakob            0sv      G               3        4        3        0
        2 Karmen           uj1      m3               1wsda    G               3        4        3        0
        3 Jakob            7ashd    _                1dsa     L               3        4        3        0

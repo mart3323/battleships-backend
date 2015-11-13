@@ -15,8 +15,8 @@ name, hash, gameID, x, y = (fields.getvalue("name"),
                             fields.getvalue("x"),
                             fields.getvalue("y"))
 
-if None in {name, hash, x, y}:
-    misc.fail("Missing parameters, one of (name, hash, gameID, ships}")
+if None in {name, hash, gameID, x, y}:
+    misc.fail("Missing parameters, one of (name, hash, x, y}")
 
 try:
     x = int(x)
@@ -27,7 +27,8 @@ except ValueError:
 games = misc.load_games()
 game = misc.find_game(games, gameID)
 player = misc.validate_player(game, name, hash)
-board1, board2 = misc.get_boards(gameID)
+opponent = 2 if player == 1 else 1
+board = misc.get_boards(gameID)[opponent-1]
 
 if player is None:
     misc.fail("Invalid name/hash/gameID")
@@ -37,19 +38,22 @@ or player == 2 and game.waiting_for != 2:
     misc.fail("The is not your turn")
 if game.game_state != "G":
     misc.fail("The game is not in progress")
-if player == game.waiting_for:
-    if player == 1:
-        board = board2
-        game.waiting_for = 2
-    else:
-        board = board1
-        game.waiting_for = 1
 
-    if board[y][x] % misc.SHOT == 0:
-        misc.fail("You've already shot that square")
+if board[y][x] % misc.SHOT == 0:
+    misc.fail("You've already shot that square")
 
-    board[y][x] *= misc.SHOT
-    misc.save_board(game.gameID, board, player)
-    misc.save_games(games)
-    misc.succeed("Shot board")
+shot_was_hit = board[y][x]%misc.SHIP == 0
+
+if not shot_was_hit:
+    game.waiting_for = opponent
+
+board[y][x] *= misc.SHOT
+
+if misc.hasLost(board):
+    game.game_state = "F"
+    # TODO:
+    # Score.save(winner=game.player_1, )
+misc.save_board(game.gameID, board, opponent)
+misc.save_games(games)
+misc.succeed("Shot board")
 

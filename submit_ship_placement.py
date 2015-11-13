@@ -2,11 +2,11 @@
 
 import cgitb
 import cgi
+from datetime import datetime
 
 import misc
 from misc import board_checker
 cgitb.enable()
-
 
 def make_board(board_size, ships):
     board = [[misc.EMPTY for _ in range(board_size)] for __ in range(board_size)]
@@ -42,9 +42,12 @@ past_layout_phase = game.game_state != "L" and game.game_state != "W"
 waiting_for_opponent_only = player == 1 and game.waiting_for == 2 or game.waiting_for == 1 and player == 2
 if waiting_for_opponent_only or past_layout_phase:
     misc.fail("You have already submitted your board")
+
+
 if player == game.waiting_for:
     misc.save_board(game.gameID, board, player)
     game.game_state = "G"
+    game.started_at = misc.get_unix_timestamp()
     game.waiting_for = 1
 if game.waiting_for == 3:
     misc.save_board(game.gameID, board, player)

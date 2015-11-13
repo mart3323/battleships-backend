@@ -39,9 +39,9 @@ def obscure(board2):
 
 validated_player_id = misc.validate_player(game, name, hash)
 if validated_player_id == 1:
-    misc.succeed("Game state loaded", game=game.to_personalized_dict(1), your_board=board1, opponent_board=obscure(board2))
+    misc.succeed("Game state loaded", game=game.to_personalized_dict(1), your_board=board1, opponent_board=obscure(board2), validated_player_id=validated_player_id)
 elif validated_player_id == 2:
-    misc.succeed("Game state loaded", game=game.to_personalized_dict(2), your_board=board2, opponent_board=obscure(board1))
+    misc.succeed("Game state loaded", game=game.to_personalized_dict(2), your_board=board2, opponent_board=obscure(board1), validated_player_id=validated_player_id)
 else:
     misc.fail("Invalid name, hash, or gameID")
 

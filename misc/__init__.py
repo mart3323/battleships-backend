@@ -1,5 +1,6 @@
 import json
 import random
+from datetime import datetime
 import Game
 import os
 
@@ -78,6 +79,21 @@ def validate_player(game, name, hash):
     if name == game.player_2 and hash == game.player_2_hash:
         return 2
     return None
+
+
+def hasLost(board):
+    for row in board:
+        for cell in row:
+            if cell % SHIP == 0:
+                if cell % SHOT != 0:
+                    return False
+    return True
+
+
+def get_unix_timestamp():
+    UNIX_EPOCH = datetime(year=1970, month=1, day=1)
+    return int((datetime.now() - UNIX_EPOCH).total_seconds())
+
 
 def make_hash():
     hashchars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
