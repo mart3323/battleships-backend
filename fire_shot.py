@@ -51,6 +51,7 @@ board[y][x] *= misc.SHOT
 
 if misc.hasLost(board):
     misc.save_as_score(games, game)
+    misc.save_board(game.gameID, board, opponent)
     misc.succeed("You win!")
 else:
     misc.save_board(game.gameID, board, opponent)

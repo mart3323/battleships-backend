@@ -1,1 +1,10 @@
-# id,   player1,    player2,    player_1_shots,     player_1_hits,     player_2_shots,    player_2_hits,   winner,    time,    date
+6  Kendrick     22   10 Cherelle      4    1  1     24 2015-11-11T21:00:07
+8  Allen        23    8 Fredericka    3    1  1     23 2015-11-11T21:17:30
+9  Horace        5    4 Kortney      32    8  2     21 2015-11-11T21:00:11
+3  Woodrow       4    3 Audrea       29    6  2     22 2015-11-11T21:00:06
+4  Brant        24    6 Olene         2    8  2     20 2015-11-11T21:00:05
+7  Heriberto    20    6 Ginger        6    1  1     15 2014-12-11T21:17:30
+5  Jed          21    8 Tien          5    1  1      2 2015-11-11T21:00:08
+2  Roderick      6    4 Valarie      16   12  2      1 2015-11-11T21:00:09
+1  Winston       1    0 Shakira      28    4  2    200 2015-11-11T21:15:25
+ 6 Kass         12    3 mart3323     17    9  2    134 2015-11-14T16:09:16

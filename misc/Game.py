@@ -6,6 +6,7 @@ def parse(line):
     waiting_for = int(waiting_for)
     num_ships = int(num_ships)
     board_size = int(board_size)
+    started_at = int(started_at)
 
     return dict(gameID=gameID,
                 player_1=player_1,
@@ -16,7 +17,7 @@ def parse(line):
                 waiting_for=waiting_for,
                 num_ships=num_ships,
                 board_size=board_size,
-                started_at=0)
+                started_at=started_at)
 
 
 def stringify(gameID, player_1, player_1_hash, player_2, player_2_hash, game_state, waiting_for, num_ships, board_size, started_at):

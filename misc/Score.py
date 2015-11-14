@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import misc
 # id,  player1,  player_1_shots,  player_1_hits,   player2,  player_2_shots,  player_2_hits,  winner,  time,  date
 class Score:
@@ -19,6 +19,19 @@ class Score:
         self.time = time
         self.date = date
 
+    def to_dict(self):
+        return dict(
+            gameID=self.gameID,
+            player_1=self.player_1,
+            player_2=self.player_2,
+            player_1_shots=self.player_1_shots,
+            player_2_shots=self.player_2_shots,
+            player_1_hits=self.player_1_hits,
+            player_2_hits=self.player_2_hits,
+            winner=self.winner,
+            time=self.time,
+            date=self.date
+        )
     def __str__(self):
         return "{0:2} {1:10} {2:4} {3:4} {4:10} {5:4} {6:4} {7:2} {8:6} {9}".format(
             self.gameID,
@@ -55,4 +68,10 @@ def from_game(game, board1, board2):
     return Score(game.gameID,
                  game.player_1, player_1_shots, player_1_hits,
                  game.player_2, player_2_shots, player_2_hits,
-                 winner, delta_time, str(game.started_at))
+                 winner, delta_time, unix_to_timestamp(game.started_at))
+
+
+def unix_to_timestamp(unixTime):
+    UNIX_EPOCH = datetime(year=1970, month=1, day=1)
+    actual_time = UNIX_EPOCH + timedelta(seconds=unixTime)
+    return actual_time.isoformat()
