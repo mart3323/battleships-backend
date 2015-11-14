@@ -4,6 +4,18 @@ import cgitb
 import cgi
 import misc
 
+def obscureCell(cell):
+    if cell % misc.SHOT == 0:
+        return cell
+    return misc.FOG
+
+
+def obscure(board2):
+    return [
+        [obscureCell(cell) for cell in line]
+        for line in board2
+        ]
+
 cgitb.enable()
 
 fields = cgi.FieldStorage()
@@ -15,33 +27,15 @@ if None in {name, hash, gameID}:
     misc.fail("Missing fields, one of (name, hash, gameID)")
 
 game = misc.find_game(misc.load_games(), gameID)
+if game is None:
+    misc.fail("No game found")
+validated_player_id = misc.validate_player(game, name, hash)
 try:
     board1, board2 = misc.get_boards(gameID)
+    your_board = board1 if validated_player_id == 1 else board2
+    opponent_board = obscure(board2 if validated_player_id == 1 else board1)
 except:
-    board1, board2 = False, False
+    your_board, opponent_board = [[]], [[]]
 
-
-dct = game.to_dict()
-
-
-def obscureCell(cell):
-    if cell % misc.SHOT == 0:
-        return cell
-    return misc.FOG
-
-
-def obscure(board2):
-    return [
-        [obscureCell(cell) for cell in line]
-        for line in board2
-    ]
-
-
-validated_player_id = misc.validate_player(game, name, hash)
-if validated_player_id == 1:
-    misc.succeed("Game state loaded", game=game.to_personalized_dict(1), your_board=board1, opponent_board=obscure(board2), validated_player_id=validated_player_id)
-elif validated_player_id == 2:
-    misc.succeed("Game state loaded", game=game.to_personalized_dict(2), your_board=board2, opponent_board=obscure(board1), validated_player_id=validated_player_id)
-else:
-    misc.fail("Invalid name, hash, or gameID")
+misc.succeed("Game state loaded", game=game.to_personalized_dict(validated_player_id), your_board=your_board, opponent_board=opponent_board, validated_player_id=validated_player_id)
 

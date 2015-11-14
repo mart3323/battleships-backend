@@ -35,7 +35,7 @@ if player is None:
 
 if player == 1 and game.waiting_for != 1 \
 or player == 2 and game.waiting_for != 2:
-    misc.fail("The is not your turn")
+    misc.fail("It is not your turn")
 if game.game_state != "G":
     misc.fail("The game is not in progress")
 
@@ -50,10 +50,10 @@ if not shot_was_hit:
 board[y][x] *= misc.SHOT
 
 if misc.hasLost(board):
-    game.game_state = "F"
-    # TODO:
-    # Score.save(winner=game.player_1, )
-misc.save_board(game.gameID, board, opponent)
-misc.save_games(games)
-misc.succeed("Shot board")
+    misc.save_as_score(games, game)
+    misc.succeed("You win!")
+else:
+    misc.save_board(game.gameID, board, opponent)
+    misc.save_games(games)
+    misc.succeed("Shot board")
 
