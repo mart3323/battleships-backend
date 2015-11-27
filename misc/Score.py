@@ -54,7 +54,6 @@ def parse(line):
 def from_game(game, board1, board2):
     """
     :type game: Game.Game
-    :type winner: int
     :type return: Score
     """
     cells1 = reduce(list.__add__, board1)

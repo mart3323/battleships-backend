@@ -49,12 +49,13 @@ class Game:
         self.started_at = data["started_at"]
 
     def to_personalized_dict(self, player_id):
+        opponent = 1 if player_id == 2 else 2
         return dict(gameID=self.gameID,
                     your_name=self.player_1 if player_id == 1 else self.player_2,
                     your_hash=self.player_1_hash if player_id == 1 else self.player_2_hash,
                     your_turn=self.waiting_for == player_id or self.waiting_for == 3,
                     opponent_name=self.player_2 if player_id == 1 else self.player_1,
-                    opponent_turn=self.waiting_for != player_id,
+                    opponent_turn=self.waiting_for == opponent or self.waiting_for == 3,
                     game_state=self.game_state,
                     num_ships=self.num_ships,
                     board_size=self.board_size,

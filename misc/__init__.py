@@ -127,6 +127,7 @@ def load_scores():
 def save_as_score(games, game):
     scores = load_scores()
     game.game_state = "F"
+    game.turn = 0
     board1, board2 = get_boards(game.gameID)
     scores.append(Score.from_game(game, board1, board2))
     save_games(games)
