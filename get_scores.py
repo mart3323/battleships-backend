@@ -39,6 +39,6 @@ if reverse:
     scores.reverse()
 
 for score in scores:
-    score.date = score.date.replace("T"," ")
+    score.date = score.date.replace("T", " ")
 
 misc.succeed("Got scores", scores=[s.to_dict() for s in scores][0:10])
